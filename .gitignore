@@ -38,8 +38,6 @@ Thumbs.db
 # Visual Studio #
 #################
 [Oo]bj
-*.sln
-*.csproj
 *.suo
 *.userprefs
 *.pidb
