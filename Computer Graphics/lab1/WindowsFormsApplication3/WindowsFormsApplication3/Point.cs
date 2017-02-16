@@ -45,6 +45,7 @@ namespace WindowsFormsApplication3
             else return -1;
         }
 
+        // центр окружности по трем точкам
         public Point getcenter(Point point2, Point point3)
         {
             double L12 = X * X + Y * Y - point2.X * point2.X - point2.Y * point2.Y;
@@ -55,7 +56,7 @@ namespace WindowsFormsApplication3
                 double x0 = (L12 - 2 * y0 * (Y - point2.Y)) / (2 * (X - point2.X));
                 return (new Point(x0, y0));
             }
-            else //X == point2.X
+            else //(X == point2.X)
             {
                 double y0 = ((X - point2.X) * L13 - (X - point3.X) * L12) / (2 * (Y - point3.Y) * (X - point2.X) - 2 * (Y - point2.Y) * (X - point3.X));
                 double x0 = (L13 - 2 * y0 * (Y - point3.Y)) / (2 * (X - point3.X));

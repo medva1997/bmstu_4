@@ -52,6 +52,7 @@
             this.p4 = new System.Windows.Forms.Label();
             this.p5 = new System.Windows.Forms.Label();
             this.p6 = new System.Windows.Forms.Label();
+            this.checkBox1 = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).BeginInit();
             this.SuspendLayout();
@@ -222,6 +223,7 @@
             // p1
             // 
             this.p1.AutoSize = true;
+            this.p1.BackColor = System.Drawing.Color.Transparent;
             this.p1.Location = new System.Drawing.Point(754, 561);
             this.p1.Name = "p1";
             this.p1.Size = new System.Drawing.Size(0, 13);
@@ -230,6 +232,7 @@
             // p2
             // 
             this.p2.AutoSize = true;
+            this.p2.BackColor = System.Drawing.Color.Transparent;
             this.p2.Location = new System.Drawing.Point(779, 563);
             this.p2.Name = "p2";
             this.p2.Size = new System.Drawing.Size(0, 13);
@@ -238,6 +241,7 @@
             // p3
             // 
             this.p3.AutoSize = true;
+            this.p3.BackColor = System.Drawing.Color.Transparent;
             this.p3.Location = new System.Drawing.Point(811, 564);
             this.p3.Name = "p3";
             this.p3.Size = new System.Drawing.Size(0, 13);
@@ -246,6 +250,7 @@
             // p4
             // 
             this.p4.AutoSize = true;
+            this.p4.BackColor = System.Drawing.Color.Transparent;
             this.p4.Location = new System.Drawing.Point(849, 562);
             this.p4.Name = "p4";
             this.p4.Size = new System.Drawing.Size(0, 13);
@@ -254,6 +259,7 @@
             // p5
             // 
             this.p5.AutoSize = true;
+            this.p5.BackColor = System.Drawing.Color.Transparent;
             this.p5.Location = new System.Drawing.Point(882, 561);
             this.p5.Name = "p5";
             this.p5.Size = new System.Drawing.Size(0, 13);
@@ -262,16 +268,30 @@
             // p6
             // 
             this.p6.AutoSize = true;
+            this.p6.BackColor = System.Drawing.Color.Transparent;
             this.p6.Location = new System.Drawing.Point(912, 565);
             this.p6.Name = "p6";
             this.p6.Size = new System.Drawing.Size(0, 13);
             this.p6.TabIndex = 26;
+            // 
+            // checkBox1
+            // 
+            this.checkBox1.AutoSize = true;
+            this.checkBox1.Location = new System.Drawing.Point(1162, 465);
+            this.checkBox1.Name = "checkBox1";
+            this.checkBox1.Size = new System.Drawing.Size(112, 17);
+            this.checkBox1.TabIndex = 27;
+            this.checkBox1.Text = "Подписать точки";
+            this.checkBox1.UseVisualStyleBackColor = true;
+            this.checkBox1.Visible = false;
+            this.checkBox1.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1286, 583);
+            this.Controls.Add(this.checkBox1);
             this.Controls.Add(this.p6);
             this.Controls.Add(this.p5);
             this.Controls.Add(this.p4);
@@ -292,6 +312,8 @@
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.dataGridView1);
             this.Controls.Add(this.button1);
+            this.MaximumSize = new System.Drawing.Size(1302, 622);
+            this.MinimumSize = new System.Drawing.Size(1302, 622);
             this.Name = "Form1";
             this.Text = "Лабораторная работа 1";
             this.Load += new System.EventHandler(this.Form1_Load);
@@ -329,6 +351,7 @@
         private System.Windows.Forms.Label p4;
         private System.Windows.Forms.Label p5;
         private System.Windows.Forms.Label p6;
+        private System.Windows.Forms.CheckBox checkBox1;
     }
 }
 
