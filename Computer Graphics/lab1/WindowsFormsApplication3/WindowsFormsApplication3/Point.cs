@@ -68,13 +68,25 @@ namespace WindowsFormsApplication3
 
         public Point intersection(Line tangent, double r)
         {
-            double k = -tangent.getA / tangent.getB;
-            double b = - tangent.getC / tangent.getB;
-            //double x = -1 * k * b / (1 + Math.Pow(k, 2))+X;
-            //double y = k * x + b + Y;
-            double x = (X - k * (b - Y)) / (1 + k*k);
-            double y = k * x + b;
-            return (new Point(x, y));
+            if (Math.Abs(tangent.getB) > 0.00000000001)
+            {
+                double k = -tangent.getA / tangent.getB;
+                double b = -tangent.getC / tangent.getB;
+                //double x = -1 * k * b / (1 + Math.Pow(k, 2))+X;
+                //double y = k * x + b + Y;
+                double x = (X - k * (b - Y)) / (1 + k * k);
+                double y = k * x + b;
+                return (new Point(x, y));
+            }
+            else
+            {
+                double k = -tangent.getB / tangent.getA;
+                double b = -tangent.getC / tangent.getA;
+                double y = -(k * (b - X) - Y) / (1 + k * k);
+                double x = b + k * y;
+                return (new Point(x, y));
+            }
+
         }
 
         public Point(Line l1, Line l2)

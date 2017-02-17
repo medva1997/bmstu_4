@@ -67,17 +67,48 @@ namespace WindowsFormsApplication3
             return k * xo + xm * (1 - k);
         }
 
+        private Point s(Point O, Point A, float dx, float dy, float k)
+        {
+            double x = k * (A.getx + dx) + O.getx * (1 - k);
+            double y = k * (A.gety + dy) + O.gety * (1 - k);
+            return (new Point(x, y));
+        }
+
+        private void answinlabel()
+        {
+            label1.Visible = true;
+            label5.Text = ('(' + (resp1.getx).ToString("0.###") + "; " + (resp1.gety).ToString("0.###") + ')');
+            label5.Text += (" (" + (resp2.getx).ToString("0.###") + "; " + (resp2.gety).ToString("0.###") + ')');
+            label5.Text += (" (" + (resp3.getx).ToString("0.###") + "; " + (resp3.gety).ToString("0.###") + ')');
+            label4.Visible = true;
+            label6.Text = ("(" + (resp4.getx).ToString("0.###") + "; " + (resp4.gety).ToString("0.###") + ')');
+            label6.Text += (" (" + (resp5.getx).ToString("0.###") + "; " + (resp5.gety).ToString("0.###") + ')');
+            label6.Text += (" (" + (resp6.getx).ToString("0.###") + "; " + (resp6.gety).ToString("0.###") + ')');
+            label8.Visible = true;
+            label7.Text = ('(' + (resinters11.getx).ToString("0.###") + "; " + (resinters11.gety).ToString("0.###") + ')');
+            label7.Text += (" (" + (resinters12.getx).ToString("0.###") + "; " + (resinters12.gety).ToString("0.###") + ")\n");
+            label7.Text += (" (" + (resinters22.getx).ToString("0.###") + "; " + (resinters22.gety).ToString("0.###") + ')');
+            label7.Text += (" (" + (resinters21.getx).ToString("0.###") + "; " + (resinters21.gety).ToString("0.###") + ')');
+            checkBox1.Visible = true;
+        }
+
         private void graph()
         {
             Graphics graph = panel1.CreateGraphics();
 
             Pen pointpen1 = new Pen(Color.Red, 4);
             //точки на первой окружности 
+
             graph.DrawRectangle(pointpen1, sc(k, (float)resp1.getx + dx, (float)mid.getx), sc(k, LEN - (float)resp1.gety + dy, (float)mid.gety), 1, 1);
             graph.DrawRectangle(pointpen1, sc(k, (float)resp2.getx + dx, (float)mid.getx), sc(k, LEN - (float)resp2.gety + dy, (float)mid.gety), 1, 1);
             graph.DrawRectangle(pointpen1, sc(k, (float)resp3.getx + dx, (float)mid.getx), sc(k, LEN - (float)resp3.gety + dy, (float)mid.gety), 1, 1);
             graph.DrawRectangle(pointpen1, sc(k, (float)reso1.getx + dx, (float)mid.getx), sc(k, LEN - (float)reso1.gety + dy, (float)mid.gety), 1, 1);
-
+            /*
+            graph.DrawRectangle(pointpen1, (float)s(mid, resp1, dx, dy, k).getx, LEN - (float)s(mid, resp1, dx, dy, k).gety, 1, 1);
+            graph.DrawRectangle(pointpen1, (float)s(mid, resp2, dx, dy, k).getx, LEN - (float)s(mid, resp2, dx, dy, k).gety, 1, 1);
+            graph.DrawRectangle(pointpen1, (float)s(mid, resp3, dx, dy, k).getx, LEN - (float)s(mid, resp3, dx, dy, k).gety, 1, 1);
+            graph.DrawRectangle(pointpen1, (float)s(mid, reso1, dx, dy, k).getx, LEN - (float)s(mid, reso1, dx, dy, k).gety, 1, 1);
+            */
             //точки на второй окружности
             graph.DrawRectangle(pointpen1, sc(k, (float)resp4.getx + dx, (float)mid.getx), sc(k, LEN - (float)resp4.gety + dy, (float)mid.gety), 1, 1);
             graph.DrawRectangle(pointpen1, sc(k, (float)resp5.getx + dx, (float)mid.getx), sc(k, LEN - (float)resp5.gety + dy, (float)mid.gety), 1, 1);
@@ -95,7 +126,7 @@ namespace WindowsFormsApplication3
             graph.DrawRectangle(pointpen2, sc(k, (float)resinters12.getx + dx, (float)mid.getx), sc(k, LEN - (float)resinters12.gety + dy, (float)mid.gety), 1, 1);
             graph.DrawRectangle(pointpen2, sc(k, (float)resinters21.getx + dx, (float)mid.getx), sc(k, LEN - (float)resinters21.gety + dy, (float)mid.gety), 1, 1);
             graph.DrawRectangle(pointpen2, sc(k, (float)resinters22.getx + dx, (float)mid.getx), sc(k, LEN - (float)resinters22.gety + dy, (float)mid.gety), 1, 1);
-            graph.DrawRectangle(pointpen2, sc(k, (float)rescross.getx + dx, (float)mid.getx), sc(k, LEN - (float)rescross.gety + dy, (float)mid.gety), 1, 1);
+            //graph.DrawRectangle(pointpen2, sc(k, (float)rescross.getx + dx, (float)mid.getx), sc(k, LEN - (float)rescross.gety + dy, (float)mid.gety), 1, 1);
 
             //касательные
             Pen linepen = new Pen(Color.Black, 2);
@@ -136,8 +167,15 @@ namespace WindowsFormsApplication3
             label6.Text = "";
             panel1.Invalidate();
             panel1.Update();
+            p1.Text = "";
+            p2.Text = "";
+            p3.Text = "";
+            p4.Text = "";
+            p5.Text = "";
+            p6.Text = "";
+            checkBox1.Checked = false;
 
-;
+            ;
             int count1 = dataGridView1.RowCount - 1;
             int count2 = dataGridView2.RowCount - 1;
             List<Point> listofpoints1 = new List<Point>();
@@ -203,7 +241,7 @@ namespace WindowsFormsApplication3
                                             double r1 = listofpoints1[i].getradius(o1);
                                             double r2 = listofpoints2[l].getradius(o2);
                                             //проверка на пересечение окружностей
-                                            if ((o1.getx-o2.getx)*(o1.getx - o2.getx) + (o1.gety - o2.gety) * (o1.gety- o2.gety)<=r1+r2)
+                                            if ((o1.getx-o2.getx) * (o1.getx - o2.getx) + (o1.gety - o2.gety) * (o1.gety- o2.gety) <= (r1+r2)*(r1+r2))
                                                 break;
                                             
                                             //общие внутренние касательные
@@ -257,30 +295,20 @@ namespace WindowsFormsApplication3
             }
             if (Flag == true)
             {
-                  
-                //вывод результата: label5 - 1,2,3 точки, label6 - 4,5,6 точки, label7 - точки касания
-                label1.Visible = true;
-                label5.Text = ('(' + (resp1.getx).ToString("0.###") + "; " + (resp1.gety).ToString("0.###") + ')');
-                label5.Text += (" (" + (resp2.getx).ToString("0.###") + "; " + (resp2.gety).ToString("0.###") + ')');
-                label5.Text += (" (" + (resp3.getx).ToString("0.###") + "; " + (resp3.gety).ToString("0.###") + ')');
-                label4.Visible = true;
-                label6.Text = ("(" + (resp4.getx).ToString("0.###") + "; " + (resp4.gety).ToString("0.###") + ')');
-                label6.Text += (" (" + (resp5.getx).ToString("0.###") + "; " + (resp5.gety).ToString("0.###") + ')');
-                label6.Text += (" (" + (resp6.getx).ToString("0.###") + "; " + (resp6.gety).ToString("0.###") + ')');
-                label8.Visible = true;
-                label7.Text = ('(' + (resinters11.getx).ToString("0.###") + "; " + (resinters11.gety).ToString("0.###") + ')');
-                label7.Text += (" (" + (resinters12.getx).ToString("0.###") + "; " + (resinters12.gety).ToString("0.###") + ")\n");
-                label7.Text += (" (" + (resinters22.getx).ToString("0.###") + "; " + (resinters22.gety).ToString("0.###") + ')');
-                label7.Text += (" (" + (resinters21.getx).ToString("0.###") + "; " + (resinters21.gety).ToString("0.###") + ')');
-                checkBox1.Visible = true;
 
+                //вывод результата: label5 - 1,2,3 точки, label6 - 4,5,6 точки, label7 - точки касания
+                answinlabel();
 
                 LEN = panel1.Height;
                 mid = new Point(panel1.Width / 2, panel1.Height / 2);
                 dx = (float)(mid.getx - getmiddle(reso1, reso2,resr1,resr2).getx);
                 dy = (float)(mid.gety - (LEN - getmiddle(reso1, reso2, resr1, resr2).gety));
-                k = (LEN-30)/ (float)(max(reso1.gety, reso2.gety, resr1, resr2)- min(reso1.gety, reso2.gety, resr1, resr2));
-
+                float k1 = (LEN - 30) / (float)(max(reso1.gety, reso2.gety, resr1, resr2) - min(reso1.gety, reso2.gety, resr1, resr2));
+                float k2 = (panel1.Width-30)/(float)(max(reso1.getx,reso2.getx,resr1,resr2) - min(reso1.getx, reso2.getx,resr1,resr2));
+                if (k1 > k2)
+                    k = k2;
+                else
+                    k = k1;
                 graph();
  
             }
