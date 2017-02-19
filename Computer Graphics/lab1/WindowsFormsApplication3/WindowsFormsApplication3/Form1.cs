@@ -159,10 +159,8 @@ namespace WindowsFormsApplication3
         Point mid = new Point(0,0);
         float dx, dy, k;
 
-
-        private void button1_Click(object sender, EventArgs e)
+        private void clear()
         {
-            //clear
             label5.Text = "";
             label6.Text = "";
             panel1.Invalidate();
@@ -173,8 +171,17 @@ namespace WindowsFormsApplication3
             p4.Text = "";
             p5.Text = "";
             p6.Text = "";
+            label7.Text = "";
+            label10.Text = "";
             textBox1.Text = "";
             checkBox1.Checked = false;
+        }
+
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            //clear
+            clear();
 
             ;
             int count1 = dataGridView1.RowCount - 1;
@@ -318,7 +325,11 @@ namespace WindowsFormsApplication3
  
             }
             else
+            {
                 MessageBox.Show("Точки не найдены");
+                clear();
+            }
+                
 
             
         }
@@ -328,15 +339,16 @@ namespace WindowsFormsApplication3
             button1.BackColor = Color.Pink;
         }
 
+        private void Form1_Resize(object sender, EventArgs e)
+        {
+            graph();
+        }
+
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
 
         }
 
-        private void button5_Click(object sender, EventArgs e)
-        {
-
-        }
 
         private void checkBox1_CheckedChanged(object sender, EventArgs e)
         {
