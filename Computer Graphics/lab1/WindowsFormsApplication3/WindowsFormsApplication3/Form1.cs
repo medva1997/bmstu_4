@@ -31,7 +31,7 @@ namespace WindowsFormsApplication3
             double cd = c.distance(d);
             double ad = a.distance(d);
             double p = (ab + bc + cd + ad) / 2;
-            return Math.Sqrt(p*(p - ab) * (p - bc) * (p - cd) * (p - ad));
+            return Math.Sqrt((p - ab) * (p - bc) * (p - cd) * (p - ad));
         }
 
 
@@ -126,7 +126,7 @@ namespace WindowsFormsApplication3
             graph.DrawRectangle(pointpen2, sc(k, (float)resinters12.getx + dx, (float)mid.getx), sc(k, LEN - (float)resinters12.gety + dy, (float)mid.gety), 1, 1);
             graph.DrawRectangle(pointpen2, sc(k, (float)resinters21.getx + dx, (float)mid.getx), sc(k, LEN - (float)resinters21.gety + dy, (float)mid.gety), 1, 1);
             graph.DrawRectangle(pointpen2, sc(k, (float)resinters22.getx + dx, (float)mid.getx), sc(k, LEN - (float)resinters22.gety + dy, (float)mid.gety), 1, 1);
-            //graph.DrawRectangle(pointpen2, sc(k, (float)rescross.getx + dx, (float)mid.getx), sc(k, LEN - (float)rescross.gety + dy, (float)mid.gety), 1, 1);
+            graph.DrawRectangle(pointpen2, sc(k, (float)rescross.getx + dx, (float)mid.getx), sc(k, LEN - (float)rescross.gety + dy, (float)mid.gety), 1, 1);
 
             //касательные
             Pen linepen = new Pen(Color.Black, 2);
@@ -173,6 +173,7 @@ namespace WindowsFormsApplication3
             p4.Text = "";
             p5.Text = "";
             p6.Text = "";
+            textBox1.Text = "";
             checkBox1.Checked = false;
 
             ;
@@ -310,6 +311,10 @@ namespace WindowsFormsApplication3
                 else
                     k = k1;
                 graph();
+                textBox1.Visible = true;
+                textBox1.Text = ("Разность площадей четырехугольников, образованных центрами окружностей "  + "(I окружность c центром в точке ("+ reso1.getx.ToString("0.###")+";" + reso1.gety.ToString("0.###"));
+                textBox1.Text += (") и R = "+ resr1.ToString("0.###") + ", " + "II окружность с центром в точке ("+ reso2.getx.ToString("0.###") + ";" + reso2.gety.ToString("0.###") + ") и R = " + resr1.ToString("0.###"));
+                textBox1.Text += (") равна " + maxdiffsquare.ToString("0.###")+ " кв.единиц(ы)");
  
             }
             else

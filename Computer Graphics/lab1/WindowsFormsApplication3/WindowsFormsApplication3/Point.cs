@@ -72,8 +72,6 @@ namespace WindowsFormsApplication3
             {
                 double k = -tangent.getA / tangent.getB;
                 double b = -tangent.getC / tangent.getB;
-                //double x = -1 * k * b / (1 + Math.Pow(k, 2))+X;
-                //double y = k * x + b + Y;
                 double x = (X - k * (b - Y)) / (1 + k * k);
                 double y = k * x + b;
                 return (new Point(x, y));
@@ -89,10 +87,19 @@ namespace WindowsFormsApplication3
 
         }
 
+
         public Point(Line l1, Line l2)
         {
-            X = (l2.getB * l1.getC - l2.getC * l1.getB) / (l2.getA * l1.getB - l2.getB * l1.getA);
-            Y = (-l1.getC - l1.getA * X) / l1.getB;
+            if (Math.Abs(l1.getB) > 0.00000000001)
+            {
+                X = (l2.getB * l1.getC - l2.getC * l1.getB) / (l2.getA * l1.getB - l2.getB * l1.getA);
+                Y = -(l1.getC + l1.getA * X) / l1.getB;
+            }
+            else
+            {
+                Y = (l1.getC * l2.getA - l2.getC * l1.getA) / (l1.getA * l2.getB - l1.getB * l2.getA);
+                X = -(l1.getC + l1.getB * Y) / l1.getA;
+            }
         }
 
         public double getradius(Point center)

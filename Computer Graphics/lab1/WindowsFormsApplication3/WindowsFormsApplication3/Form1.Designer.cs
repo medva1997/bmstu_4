@@ -53,6 +53,7 @@
             this.p5 = new System.Windows.Forms.Label();
             this.p6 = new System.Windows.Forms.Label();
             this.checkBox1 = new System.Windows.Forms.CheckBox();
+            this.textBox1 = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).BeginInit();
             this.SuspendLayout();
@@ -60,7 +61,7 @@
             // button1
             // 
             this.button1.BackColor = System.Drawing.SystemColors.ControlDark;
-            this.button1.Location = new System.Drawing.Point(948, 414);
+            this.button1.Location = new System.Drawing.Point(948, 356);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(158, 28);
             this.button1.TabIndex = 0;
@@ -76,7 +77,7 @@
             this.Column2});
             this.dataGridView1.Location = new System.Drawing.Point(759, 35);
             this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.Size = new System.Drawing.Size(245, 373);
+            this.dataGridView1.Size = new System.Drawing.Size(245, 315);
             this.dataGridView1.TabIndex = 1;
             this.dataGridView1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
             // 
@@ -106,7 +107,7 @@
             this.Column4});
             this.dataGridView2.Location = new System.Drawing.Point(1020, 35);
             this.dataGridView2.Name = "dataGridView2";
-            this.dataGridView2.Size = new System.Drawing.Size(245, 373);
+            this.dataGridView2.Size = new System.Drawing.Size(245, 315);
             this.dataGridView2.TabIndex = 4;
             // 
             // Column3
@@ -142,7 +143,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(756, 453);
+            this.label1.Location = new System.Drawing.Point(756, 390);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(152, 13);
             this.label1.TabIndex = 13;
@@ -152,7 +153,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(756, 480);
+            this.label4.Location = new System.Drawing.Point(756, 413);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(155, 13);
             this.label4.TabIndex = 14;
@@ -163,7 +164,7 @@
             // 
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label5.Location = new System.Drawing.Point(945, 453);
+            this.label5.Location = new System.Drawing.Point(945, 390);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(42, 13);
             this.label5.TabIndex = 15;
@@ -173,7 +174,7 @@
             // 
             this.label6.AutoSize = true;
             this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label6.Location = new System.Drawing.Point(945, 480);
+            this.label6.Location = new System.Drawing.Point(945, 413);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(28, 13);
             this.label6.TabIndex = 16;
@@ -183,7 +184,7 @@
             // 
             this.label7.AutoSize = true;
             this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label7.Location = new System.Drawing.Point(945, 515);
+            this.label7.Location = new System.Drawing.Point(945, 438);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(21, 13);
             this.label7.TabIndex = 17;
@@ -192,7 +193,7 @@
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(756, 515);
+            this.label8.Location = new System.Drawing.Point(756, 438);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(82, 13);
             this.label8.TabIndex = 18;
@@ -202,7 +203,7 @@
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(756, 548);
+            this.label9.Location = new System.Drawing.Point(754, 480);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(109, 13);
             this.label9.TabIndex = 19;
@@ -213,7 +214,7 @@
             // 
             this.label10.AutoSize = true;
             this.label10.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label10.Location = new System.Drawing.Point(945, 548);
+            this.label10.Location = new System.Drawing.Point(945, 480);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(14, 13);
             this.label10.TabIndex = 20;
@@ -277,7 +278,7 @@
             // checkBox1
             // 
             this.checkBox1.AutoSize = true;
-            this.checkBox1.Location = new System.Drawing.Point(1162, 465);
+            this.checkBox1.Location = new System.Drawing.Point(1125, 400);
             this.checkBox1.Name = "checkBox1";
             this.checkBox1.Size = new System.Drawing.Size(112, 17);
             this.checkBox1.TabIndex = 27;
@@ -286,11 +287,21 @@
             this.checkBox1.Visible = false;
             this.checkBox1.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
             // 
+            // textBox1
+            // 
+            this.textBox1.Location = new System.Drawing.Point(761, 508);
+            this.textBox1.Multiline = true;
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(503, 60);
+            this.textBox1.TabIndex = 28;
+            this.textBox1.Visible = false;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1286, 583);
+            this.Controls.Add(this.textBox1);
             this.Controls.Add(this.checkBox1);
             this.Controls.Add(this.p6);
             this.Controls.Add(this.p5);
@@ -352,6 +363,7 @@
         private System.Windows.Forms.Label p5;
         private System.Windows.Forms.Label p6;
         private System.Windows.Forms.CheckBox checkBox1;
+        private System.Windows.Forms.TextBox textBox1;
     }
 }
 
