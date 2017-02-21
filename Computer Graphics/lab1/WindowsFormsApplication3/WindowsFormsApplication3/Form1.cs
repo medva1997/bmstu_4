@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.Drawing.Drawing2D;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -37,7 +38,7 @@ namespace WindowsFormsApplication3
 
         private double max(double p1, double p2, double r1, double r2)
         {
-            if (p1 > p2)
+            if (p1+r1 > p2+r2)
                 return p1 + r1;
             else
                 return p2 + r2;
@@ -45,7 +46,7 @@ namespace WindowsFormsApplication3
 
         private double min(double p1, double p2, double r1, double r2)
         {
-            if (p1 > p2)
+            if (p1-r1 > p2-r2)
                 return p2 - r2;
             else
                 return p1 - r1;
@@ -66,14 +67,14 @@ namespace WindowsFormsApplication3
         {
             return k * xo + xm * (1 - k);
         }
-
+        /*
         private Point s(Point O, Point A, float dx, float dy, float k)
         {
             double x = k * (A.getx + dx) + O.getx * (1 - k);
             double y = k * (A.gety + dy) + O.gety * (1 - k);
             return (new Point(x, y));
         }
-
+        */
         private void answinlabel()
         {
             label1.Visible = true;
@@ -96,6 +97,19 @@ namespace WindowsFormsApplication3
         {
             Graphics graph = panel1.CreateGraphics();
 
+            //штриховка 
+            PointF[] points = new PointF[8];
+            points[0] = new PointF(sc(k, (float)resinters11.getx + dx, (float)mid.getx), sc(k, LEN - (float)resinters11.gety + dy, (float)mid.gety));
+            points[1] = new PointF(sc(k, (float)reso1.getx + dx, (float)mid.getx), sc(k, LEN - (float)reso1.gety + dy, (float)mid.gety));
+            points[2] = new PointF(sc(k, (float)resinters12.getx + dx, (float)mid.getx), sc(k, LEN - (float)resinters12.gety + dy, (float)mid.gety));
+            points[3] = new PointF(sc(k, (float)rescross.getx + dx, (float)mid.getx), sc(k, LEN - (float)rescross.gety + dy, (float)mid.gety));
+            points[4] = new PointF(sc(k, (float)resinters21.getx + dx, (float)mid.getx), sc(k, LEN - (float)resinters21.gety + dy, (float)mid.gety));
+            points[5] = new PointF(sc(k, (float)reso2.getx + dx, (float)mid.getx), sc(k, LEN - (float)reso2.gety + dy, (float)mid.gety));
+            points[6] = new PointF(sc(k, (float)resinters22.getx + dx, (float)mid.getx), sc(k, LEN - (float)resinters22.gety + dy, (float)mid.gety));
+            points[7] = new PointF(sc(k, (float)rescross.getx + dx, (float)mid.getx), sc(k, LEN - (float)rescross.gety + dy, (float)mid.gety));
+            HatchBrush hBrush = new HatchBrush(HatchStyle.BackwardDiagonal, Color.Black, Color.White);
+            graph.FillPolygon(hBrush, points);
+
             Pen pointpen1 = new Pen(Color.Red, 4);
             //точки на первой окружности 
 
@@ -103,12 +117,7 @@ namespace WindowsFormsApplication3
             graph.DrawRectangle(pointpen1, sc(k, (float)resp2.getx + dx, (float)mid.getx), sc(k, LEN - (float)resp2.gety + dy, (float)mid.gety), 1, 1);
             graph.DrawRectangle(pointpen1, sc(k, (float)resp3.getx + dx, (float)mid.getx), sc(k, LEN - (float)resp3.gety + dy, (float)mid.gety), 1, 1);
             graph.DrawRectangle(pointpen1, sc(k, (float)reso1.getx + dx, (float)mid.getx), sc(k, LEN - (float)reso1.gety + dy, (float)mid.gety), 1, 1);
-            /*
-            graph.DrawRectangle(pointpen1, (float)s(mid, resp1, dx, dy, k).getx, LEN - (float)s(mid, resp1, dx, dy, k).gety, 1, 1);
-            graph.DrawRectangle(pointpen1, (float)s(mid, resp2, dx, dy, k).getx, LEN - (float)s(mid, resp2, dx, dy, k).gety, 1, 1);
-            graph.DrawRectangle(pointpen1, (float)s(mid, resp3, dx, dy, k).getx, LEN - (float)s(mid, resp3, dx, dy, k).gety, 1, 1);
-            graph.DrawRectangle(pointpen1, (float)s(mid, reso1, dx, dy, k).getx, LEN - (float)s(mid, reso1, dx, dy, k).gety, 1, 1);
-            */
+
             //точки на второй окружности
             graph.DrawRectangle(pointpen1, sc(k, (float)resp4.getx + dx, (float)mid.getx), sc(k, LEN - (float)resp4.gety + dy, (float)mid.gety), 1, 1);
             graph.DrawRectangle(pointpen1, sc(k, (float)resp5.getx + dx, (float)mid.getx), sc(k, LEN - (float)resp5.gety + dy, (float)mid.gety), 1, 1);
@@ -138,6 +147,7 @@ namespace WindowsFormsApplication3
             graph.DrawLine(linepen, sc(k, (float)resinters12.getx + dx, (float)mid.getx), sc(k, LEN - (float)resinters12.gety + dy, (float)mid.gety), sc(k, (float)reso1.getx + dx, (float)mid.getx), sc(k, LEN - (float)reso1.gety + dy, (float)mid.gety));
             graph.DrawLine(linepen, sc(k, (float)resinters21.getx + dx, (float)mid.getx), sc(k, LEN - (float)resinters21.gety + dy, (float)mid.gety), sc(k, (float)reso2.getx + dx, (float)mid.getx), sc(k, LEN - (float)reso2.gety + dy, (float)mid.gety));
             graph.DrawLine(linepen, sc(k, (float)resinters22.getx + dx, (float)mid.getx), sc(k, LEN - (float)resinters22.gety + dy, (float)mid.gety), sc(k, (float)reso2.getx + dx, (float)mid.getx), sc(k, LEN - (float)reso2.gety + dy, (float)mid.gety));
+
         }
 
         Point resp1 = new Point(0, 0);
@@ -161,6 +171,9 @@ namespace WindowsFormsApplication3
 
         private void clear()
         {
+            Graphics gr = panel1.CreateGraphics();
+            Rectangle rec = new Rectangle(0, 0, panel1.Width, panel1.Height);
+            gr.FillRectangle(Brushes.White, rec);
             label5.Text = "";
             label6.Text = "";
             panel1.Invalidate();
@@ -220,6 +233,7 @@ namespace WindowsFormsApplication3
             }
 
             bool Flag = false;
+            int Error = 0;
             double maxdiffsquare = -1;
 
             Line restanget1 = new Line(0, 0, 0); 
@@ -234,30 +248,32 @@ namespace WindowsFormsApplication3
                     {
                         if (listofpoints1[i].isarc(listofpoints1[j], listofpoints1[k]) == 1)
                         {
-                            for (int l = 0; l < count2-2; l++)
+                            for (int l = 0; l < count2 - 2; l++)
                             {
-                                for (int m = l+1; m < count2-1; m++)
+                                for (int m = l + 1; m < count2 - 1; m++)
                                 {
-                                    for (int n = m+1; n < count2; n++)
+                                    for (int n = m + 1; n < count2; n++)
                                     {
                                         if (listofpoints2[l].isarc(listofpoints2[m], listofpoints2[n]) == 1)
                                         {
-                                           
+                                            Error = 0;
                                             //центры окружностей и радиусы
                                             Point o1 = listofpoints1[i].getcenter(listofpoints1[j], listofpoints1[k]);
                                             Point o2 = listofpoints2[l].getcenter(listofpoints2[m], listofpoints2[n]);
                                             double r1 = listofpoints1[i].getradius(o1);
                                             double r2 = listofpoints2[l].getradius(o2);
                                             //проверка на пересечение окружностей
-                                            if ((o1.getx-o2.getx) * (o1.getx - o2.getx) + (o1.gety - o2.gety) * (o1.gety- o2.gety) <= (r1+r2)*(r1+r2))
+                                            if ((o1.getx - o2.getx) * (o1.getx - o2.getx) + (o1.gety - o2.gety) * (o1.gety - o2.gety) <= (r1 + r2) * (r1 + r2))
+                                            {
+                                                Error = 1;
                                                 break;
-                                            
+                                            }
+
+
                                             //общие внутренние касательные
                                             Line t = new Line(0, 0, 0);
                                             Line tanget1 = t.gettanget(o1, o2, r1, -r2, 1);
                                             Line tanget2 = t.gettanget(o1, o2, -r1, r2, 1);
-                                            //tanget1 = new Line(o1, o2, r1, -r2, 1);
-                                            //tanget2 = new Line(o1, o2, -r1, r2, 1);
 
                                             //точки пересечения окружностей и касательных
                                             Point inters11 = o1.intersection(tanget1, r1);
@@ -266,7 +282,7 @@ namespace WindowsFormsApplication3
                                             Point inters22 = o2.intersection(tanget2, r2);
                                             Point cross = new Point(tanget1, tanget2);
 
-                                            if (Math.Abs(area(inters11,o1,inters12,cross)-area(inters21,o2,inters22,cross))> maxdiffsquare)
+                                            if (Math.Abs(area(inters11, o1, inters12, cross) - area(inters21, o2, inters22, cross)) > maxdiffsquare)
                                             {
                                                 maxdiffsquare = Math.Abs(area(inters11, o1, inters12, cross) - area(inters21, o2, inters22, cross));
                                                 resp1 = listofpoints1[i];
@@ -286,26 +302,29 @@ namespace WindowsFormsApplication3
                                                 resinters21 = inters21;
                                                 resinters22 = inters22;
                                                 rescross = cross;
-                              
+
                                                 label9.Visible = true;
                                                 label10.Visible = true;
-                                                label10.Text = (maxdiffsquare.ToString("0.####")+" кв.единиц"); 
-                                            }  
+                                                label10.Text = (maxdiffsquare.ToString("0.####") + " кв.единиц");
+                                            }
                                             Flag = true;
 
                                         }
+                                        else
+                                            Error = 2;
                                     }
                                 }
                             }
-                        }                                       
+                        }
+                        else
+                            Error = 2;                                       
                     }
                 }
             }
             if (Flag == true)
             {
 
-                //вывод результата: label5 - 1,2,3 точки, label6 - 4,5,6 точки, label7 - точки касания
-                answinlabel();
+                
 
                 LEN = panel1.Height;
                 mid = new Point(panel1.Width / 2, panel1.Height / 2);
@@ -318,6 +337,9 @@ namespace WindowsFormsApplication3
                 else
                     k = k1;
                 graph();
+                //вывод результата: label5 - 1,2,3 точки, label6 - 4,5,6 точки, label7 - точки касания
+                answinlabel();
+
                 textBox1.Visible = true;
                 textBox1.Text = ("Разность площадей четырехугольников, образованных центрами окружностей "  + "(I окружность c центром в точке ("+ reso1.getx.ToString("0.###")+";" + reso1.gety.ToString("0.###"));
                 textBox1.Text += (") и R = "+ resr1.ToString("0.###") + ", " + "II окружность с центром в точке ("+ reso2.getx.ToString("0.###") + ";" + reso2.gety.ToString("0.###") + ") и R = " + resr1.ToString("0.###"));
@@ -326,7 +348,11 @@ namespace WindowsFormsApplication3
             }
             else
             {
-                MessageBox.Show("Точки не найдены");
+                if (Error == 1)
+                    MessageBox.Show("Не удалось найти подходящие окружности. Возможно, они пересекаются.");
+                else if (Error == 2)
+                    MessageBox.Show("Введенные точки лежат на одной прямой.");
+                //MessageBox.Show("Точки не найдены");
                 clear();
             }
                 

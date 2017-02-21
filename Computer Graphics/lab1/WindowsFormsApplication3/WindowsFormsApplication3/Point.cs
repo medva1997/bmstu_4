@@ -21,7 +21,7 @@ namespace WindowsFormsApplication3
         {
             return Math.Sqrt((X - point2.X)* (X - point2.X)+ (Y - point2.Y)* (Y - point2.Y));
         }
-
+        /*
         public int isarc(Point point2, Point point3)
         {
             double L12 = Math.Pow(X, 2) - Math.Pow(point2.X, 2) + Math.Pow(Y, 2) - Math.Pow(point2.Y, 2);
@@ -43,6 +43,14 @@ namespace WindowsFormsApplication3
                 else return 0;
             }
             else return -1;
+        }
+*/
+        public int isarc(Point point2, Point point3)
+        {
+            if ((point3.X - X) * (point2.Y - Y) != (point2.X - X) * (point3.Y - Y))
+                return 1;
+            else
+                return 0;
         }
 
         // центр окружности по трем точкам
