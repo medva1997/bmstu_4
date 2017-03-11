@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <math.h>
 
-#define EPS 0.000001
+#define EPS 0.0001
 
 float F(float x, float y)
 {
@@ -18,12 +18,10 @@ float gety(float x, float l, float r)
 	}
 
 	//поиск Y при заданном X методом половинного деления
-	float middle;
-	while (fabs(r-l)>EPS)
+	float middle = (l+r)/2;
+	while (fabs(r-l)>EPS*middle+EPS)
 	{
 		middle = (l+r)/2;
-		if (F(x,middle) == 0)
-			return middle;
 		if (F(x,middle)*F(x,l)<0)
 			r = middle;
 		else
@@ -36,11 +34,12 @@ float gety(float x, float l, float r)
 
 float Trapezia(float a, float b, float n)
 {
+  
 	float h = (b-a)/n;
-	float s = 0;
-	for (float i = a; i < b; i+=h)
+	float s = (gety(a,-1,1)+gety(b,-1,1))/2;
+	for (float i = a+h; i < b-h; i+=h)
 	{
-		s += (gety(i,-1,1)  +  gety(i+h,-1,1)) / 2;
+		s += gety(i,-1,1);
 	}
 	return h*s;
 }

@@ -5,6 +5,7 @@
 #define PI 3.141592 
 #define N 8
 //######## ДАННЫЕ #########
+/*
 float table[N][2] = {{-3, -1},
 					{-2, -0.866},
 					{-1, -0.5},
@@ -15,6 +16,7 @@ float table[N][2] = {{-3, -1},
 					{ 4,  0.866}};
 int n = 3;
 float x = 1.5;
+*/
 //##########################
 
 float **allocate_memory(int n, int m)
@@ -27,7 +29,7 @@ float **allocate_memory(int n, int m)
 	return data;
 } 
 
-float **sort(float **choose)
+float **sort(float **choose, int n)
 {
 	for (int i = 0; i < n; i++)
 		for (int j = 0; j < n-i; j++)
@@ -40,7 +42,7 @@ float **sort(float **choose)
 	return choose;
 }
 
-float **NewTable(float **choose)
+float **NewTable(float x, float **table, float **choose, int n)
 {
 	int i = 0;
 	while (table[i][0] < x)
@@ -57,7 +59,7 @@ float **NewTable(float **choose)
 		}
 		k++;
 	}
-	choose = sort(choose);
+	choose = sort(choose ,n);
 	return choose;
 }
 
@@ -76,7 +78,7 @@ float RazdRazn(int m, float **choose)
 	}
 	return result;
 }
-
+/*
 float Polinom(float **choose)
 {
 	float y = choose[0][1];
@@ -90,14 +92,64 @@ float Polinom(float **choose)
 	}
 	return y;
 }
-
+*/
 float F(float x)
 {
 	return sin(PI*x/6);
+} 
+
+float **generate(float **begtab, int t, float a, float b)
+{
+  float h = (b-a)/t;
+  for (int i = a; i < b; i+=h)
+  {
+    begtab[i][0] = i;
+    begtab[i][1] = F(i);
+  }
+  return begtab;
+}
+
+
+void print_matrix(int n, int m, double **matrix)
+{
+	for (int i = 0; i < n; i++)
+    {
+        for (int j = 0; j < m; j++)
+        {
+        	if (matrix[i][j] - (int)matrix[i][j] == 0)
+        		printf("%8d", (int)matrix[i][j]);
+        	else
+            	printf(" %7.4f", matrix[i][j]);
+        }
+        printf("\n");
+    }
 }
 
 int main(void)
 {
+  int n,t;
+  float a,b,X;
+  printf("ГЕНЕРАЦИЯ ТАБЛИЦЫ\n");
+  printf("Границы значений для таблицы: ");
+  scanf("%f %f",&a,&b);
+  printf("Количество узлов в таблице: ");
+  scanf("%d",&t);
+  printf("Степень полинома: ");
+  scanf("%d",&n);
+  printf("X = ");
+  scanf("%f",&X);
+  float **begtab = allocate_memory(t,2);
+  begtab = generate(begtab,t,a,b);
+  /*
+  float **table = allocate_memory(n+1,n+2);
+  table = NewTable(X,begtab,table,n);
+  print_matrix(t,2,begtab);
+  free(table);
+  free(begtab);
+    */
+
+
+  /*
 	float **choose = allocate_memory(n+1, 2);
 	choose = NewTable(choose);
 	printf("Узлы:\n");
@@ -107,5 +159,5 @@ int main(void)
 	printf("\nПолуч. значение: Y(%.3f) = %.4f\n",x, P);
 	printf("Точное значение: Y(%.3f) = %.4f\n", x, F(x));
 	printf("Погрешность интерполяции: %f\n", fabs(F(x)-P));
-	free(choose);
+	free(choose);     */
 }
