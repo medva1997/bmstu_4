@@ -26,7 +26,7 @@ namespace lab3
         Color fon = Color.White;
         double x0, y0, xf, yf;
         double xc, yc, r, alpha;
-        int PART;
+        int PART = 1;
         int I = 50;
 
         private void Form1_Load(object sender, EventArgs e)
@@ -38,7 +38,6 @@ namespace lab3
         {
             canvas.Clear(Color.White);
         }
-
         public int IsCoordsChange(double x1, double y1, double x2, double y2)
         {
             if (x1 == x0 && y1 == y0 && x2 == xf && y2 == yf)
@@ -46,7 +45,6 @@ namespace lab3
             else
                 return 0;
         }
-
         public int IsParamsChange(double x, double y, double R, double A)
         {
             if (x == xc && y == yc && R == r && A == alpha)
@@ -54,12 +52,6 @@ namespace lab3
             else
                 return 0;
         }
-        private void StdDrawLine(double x1, double y1, double x2, double y2, Color clr)
-        {
-            Pen p = new Pen(clr, 1);
-            canvas.DrawLine(p, (float)x1, (float)y1, (float)x2, (float)y2);
-        }
-
         private int sign(double x)
         {
             if (x > 0)
@@ -68,6 +60,12 @@ namespace lab3
                 return 0;
             else
                 return -1;
+        }
+
+        private void StdDrawLine(double x1, double y1, double x2, double y2, Color clr)
+        {
+            Pen p = new Pen(clr, 1);
+            canvas.DrawLine(p, (float)x1, (float)y1, (float)x2, (float)y2);
         }
 
         private void CdaDrawLine(double x1, double y1, double x2, double y2, Color clr)
@@ -92,7 +90,7 @@ namespace lab3
                     x += dx;
                     y += dy;
                 }
-                //MessageBox.Show(x.ToString() + "   " + y.ToString());
+                label2.Text = (x.ToString() + "   " + y.ToString());
             }
         }
 
@@ -146,7 +144,8 @@ namespace lab3
                     f1 += 2 * dy;
                     //f += m;
                 }
-                //MessageBox.Show(x.ToString() + "   " + y.ToString());
+
+                label2.Text = (x.ToString() + "   " + y.ToString());
             }
         }
 
@@ -197,7 +196,7 @@ namespace lab3
                     }
                     f += m;
                 }
-                //MessageBox.Show(x.ToString() + "   " + y.ToString());
+                label2.Text = (x.ToString() + "   " + y.ToString());
             }
         }
 
@@ -256,18 +255,22 @@ namespace lab3
                     br = new SolidBrush(drawcolor);
                     canvas.FillRectangle(br, (float)x, (float)y, 1, 1);
                 }
-                MessageBox.Show(x.ToString() + "   " + y.ToString());
+                label2.Text = (x.ToString() + "   " + y.ToString());
             }
 
         }
 
         private void radioButton1_CheckedChanged(object sender, EventArgs e)
         {
+            canvas = panel1.CreateGraphics();
             label1.Text = "Координаты начала и координаты конца отрезка:";
             label3.Text = "Xн";
             label5.Text = "Yн";
             label4.Text = "Xк";
             label6.Text = "Yк";
+            label2.Text = "";
+            label2.Visible = true;
+            ClearCanvas();
             textBox1.Clear();
             textBox2.Clear();
             textBox3.Clear();
@@ -277,11 +280,15 @@ namespace lab3
 
         private void radioButton2_CheckedChanged(object sender, EventArgs e)
         {
+            canvas = panel1.CreateGraphics();
             label1.Text = "Центр, радиус и шаг угла(в градусах):";
             label3.Text = "X центра";
             label5.Text = "Y центра";
             label4.Text = "Радиус";
             label6.Text = "Угол";
+            label2.Text = "";
+            label2.Visible = false;
+            //ClearCanvas();
             textBox1.Text = (panel1.Width/2).ToString();
             textBox2.Text = (panel1.Height/2).ToString();
             textBox3.Clear();
@@ -320,7 +327,7 @@ namespace lab3
                 }
                 catch
                 {
-                    MessageBox.Show("Проверьте введенные данные(1)");
+                    MessageBox.Show("Проверьте введенные данные");
                     return;
                 }
                 if (checkBox1.Checked == false)
@@ -345,7 +352,7 @@ namespace lab3
                 }
                 catch
                 {
-                    MessageBox.Show("Проверьте введенные данные(2)");
+                    MessageBox.Show("Проверьте введенные данные");
                     return;
                 }
                 if (checkBox1.Checked == false)
@@ -354,9 +361,7 @@ namespace lab3
                     DrawSun(xc, yc, r, alpha, fon, BresenhamGradation);
             }
         }
-
-
-
+        
         private void button1_Click(object sender, EventArgs e)
         {
             canvas = panel1.CreateGraphics();
@@ -377,7 +382,7 @@ namespace lab3
                 }
                 catch
                 {
-                    MessageBox.Show("Проверьте введенные данные(1)");
+                    MessageBox.Show("Проверьте введенные данные");
                     return;
                 }
                 if (checkBox1.Checked == false)
@@ -402,7 +407,7 @@ namespace lab3
                 }
                 catch
                 {
-                    MessageBox.Show("Проверьте введенные данные(2)");
+                    MessageBox.Show("Проверьте введенные данные");
                     return;
                 }
                 if (checkBox1.Checked == false)
@@ -432,7 +437,7 @@ namespace lab3
                 }
                 catch
                 {
-                    MessageBox.Show("Проверьте введенные данные(1)");
+                    MessageBox.Show("Проверьте введенные данные");
                     return;
                 }
                 if (checkBox1.Checked == false)
@@ -457,7 +462,7 @@ namespace lab3
                 }
                 catch
                 {
-                    MessageBox.Show("Проверьте введенные данные(2)");
+                    MessageBox.Show("Проверьте введенные данные");
                     return;
                 }
                 if (checkBox1.Checked == false)
@@ -487,7 +492,7 @@ namespace lab3
                 }
                 catch
                 {
-                    MessageBox.Show("Проверьте введенные данные(1)");
+                    MessageBox.Show("Проверьте введенные данные");
                     return;
                 }
                 if (checkBox1.Checked == false)
@@ -512,7 +517,7 @@ namespace lab3
                 }
                 catch
                 {
-                    MessageBox.Show("Проверьте введенные данные(2)");
+                    MessageBox.Show("Проверьте введенные данные");
                     return;
                 }
                 if (checkBox1.Checked == false)
@@ -542,7 +547,7 @@ namespace lab3
                 }
                 catch
                 {
-                    MessageBox.Show("Проверьте введенные данные(1)");
+                    MessageBox.Show("Проверьте введенные данные");
                     return;
                 }
                 if (checkBox1.Checked == false)
@@ -567,7 +572,7 @@ namespace lab3
                 }
                 catch
                 {
-                    MessageBox.Show("Проверьте введенные данные(2)");
+                    MessageBox.Show("Проверьте введенные данные");
                     return;
                 }
                 if (checkBox1.Checked == false)
