@@ -26,6 +26,7 @@ namespace lab3
         Color fon = Color.White;
         double x0, y0, xf, yf;
         double xc, yc, r, alpha;
+        int PART;
         int I = 50;
 
         private void Form1_Load(object sender, EventArgs e)
@@ -229,12 +230,12 @@ namespace lab3
                 double y = y1;
                 m *= I;
                 double W = I - m;
-                br = new SolidBrush(Color.FromArgb((int)(f/I*255), clr.R, clr.G, clr.B));
+                br = new SolidBrush(Color.FromArgb((int)(f / I * 255), clr.R, clr.G, clr.B));
                 canvas.FillRectangle(br, (float)x1, (float)y1, 1, 1);
                 for (int i = 0; i < dx; i++)
                 {
 
-                    
+
                     if (f <= W)
                     {
                         if (flag == 0)
@@ -258,68 +259,100 @@ namespace lab3
                 MessageBox.Show(x.ToString() + "   " + y.ToString());
             }
 
-            }
+        }
+
+        private void radioButton1_CheckedChanged(object sender, EventArgs e)
+        {
+            label1.Text = "Координаты начала и координаты конца отрезка:";
+            label3.Text = "Xн";
+            label5.Text = "Yн";
+            label4.Text = "Xк";
+            label6.Text = "Yк";
+            textBox1.Clear();
+            textBox2.Clear();
+            textBox3.Clear();
+            textBox4.Clear();
+            PART = 1;
+        }
+
+        private void radioButton2_CheckedChanged(object sender, EventArgs e)
+        {
+            label1.Text = "Центр, радиус и шаг угла(в градусах):";
+            label3.Text = "X центра";
+            label5.Text = "Y центра";
+            label4.Text = "Радиус";
+            label6.Text = "Угол";
+            textBox1.Text = (panel1.Width/2).ToString();
+            textBox2.Text = (panel1.Height/2).ToString();
+            textBox3.Clear();
+            textBox4.Clear();
+            PART = 0;
+        }
 
         private void DrawSun(double x, double y, double R, double a, Color clr, Action<double, double, double, double, Color> FuncLine)
         {
             float angle = (float)(a / 180 * Math.PI);
             int N = (int)(2 * Math.PI / angle);
-            for (float i = 0; i <= 2*Math.PI-angle; i+=angle)
+            for (float i = 0; i <= 2 * Math.PI - angle; i += angle)
             {
                 FuncLine(x, y, x + Math.Cos(i) * R, y + Math.Sin(i) * R, clr);
-                
+
             }
         }
 
         private void button5_Click(object sender, EventArgs e)
         {
             canvas = panel1.CreateGraphics();
-            try
+            if (PART == 1)
             {
-                textBox1.Text = textBox1.Text.Replace('.', ',');
-                textBox2.Text = textBox2.Text.Replace('.', ',');
-                textBox3.Text = textBox3.Text.Replace('.', ',');
-                textBox4.Text = textBox4.Text.Replace('.', ',');
-                if (IsCoordsChange(Convert.ToDouble(textBox1.Text), Convert.ToDouble(textBox2.Text), Convert.ToDouble(textBox3.Text), Convert.ToDouble(textBox4.Text)) == 0)
-                    ClearCanvas();
-                x0 = Convert.ToDouble(textBox1.Text);
-                y0 = Convert.ToDouble(textBox2.Text);
-                xf = Convert.ToDouble(textBox3.Text);
-                yf = Convert.ToDouble(textBox4.Text);
+                try
+                {
+                    textBox1.Text = textBox1.Text.Replace('.', ',');
+                    textBox2.Text = textBox2.Text.Replace('.', ',');
+                    textBox3.Text = textBox3.Text.Replace('.', ',');
+                    textBox4.Text = textBox4.Text.Replace('.', ',');
+                    if (IsCoordsChange(Convert.ToDouble(textBox1.Text), Convert.ToDouble(textBox2.Text), Convert.ToDouble(textBox3.Text), Convert.ToDouble(textBox4.Text)) == 0)
+                        ClearCanvas();
+                    x0 = Convert.ToDouble(textBox1.Text);
+                    y0 = Convert.ToDouble(textBox2.Text);
+                    xf = Convert.ToDouble(textBox3.Text);
+                    yf = Convert.ToDouble(textBox4.Text);
+                }
+                catch
+                {
+                    MessageBox.Show("Проверьте введенные данные(1)");
+                    return;
+                }
+                if (checkBox1.Checked == false)
+                    BresenhamGradation(x0, y0, xf, yf, draw);
+                else
+                    BresenhamGradation(x0, y0, xf, yf, fon);
             }
-            catch
-            {
-                MessageBox.Show("Проверьте введенные данные(1)");
-                return;
-            }
-            if (checkBox1.Checked == false)
-                BresenhamGradation(x0, y0, xf, yf,draw);
             else
-                BresenhamGradation(x0, y0, xf, yf,fon);
-
-            canvas = panel2.CreateGraphics();
-            try
             {
-                textBox5.Text = textBox5.Text.Replace('.', ',');
-                textBox6.Text = textBox6.Text.Replace('.', ',');
-                textBox7.Text = textBox7.Text.Replace('.', ',');
-                textBox8.Text = textBox8.Text.Replace('.', ',');
-                if (IsParamsChange(Convert.ToDouble(textBox5.Text), Convert.ToDouble(textBox6.Text), Convert.ToDouble(textBox7.Text), Convert.ToDouble(textBox8.Text)) == 0)
-                    ClearCanvas();
-                xc = Convert.ToDouble(textBox5.Text);
-                yc = Convert.ToDouble(textBox6.Text);
-                r = Convert.ToDouble(textBox7.Text);
-                alpha = Convert.ToDouble(textBox8.Text);
+                try
+                {
+                    textBox1.Text = textBox1.Text.Replace('.', ',');
+                    textBox2.Text = textBox2.Text.Replace('.', ',');
+                    textBox3.Text = textBox3.Text.Replace('.', ',');
+                    textBox4.Text = textBox4.Text.Replace('.', ',');
+                    if (IsParamsChange(Convert.ToDouble(textBox1.Text), Convert.ToDouble(textBox2.Text), Convert.ToDouble(textBox3.Text), Convert.ToDouble(textBox4.Text)) == 0)
+                        ClearCanvas();
+                    xc = Convert.ToDouble(textBox1.Text);
+                    yc = Convert.ToDouble(textBox2.Text);
+                    r = Convert.ToDouble(textBox3.Text);
+                    alpha = Convert.ToDouble(textBox4.Text);
+                }
+                catch
+                {
+                    MessageBox.Show("Проверьте введенные данные(2)");
+                    return;
+                }
+                if (checkBox1.Checked == false)
+                    DrawSun(xc, yc, r, alpha, draw, BresenhamGradation);
+                else
+                    DrawSun(xc, yc, r, alpha, fon, BresenhamGradation);
             }
-            catch
-            {
-                MessageBox.Show("Проверьте введенные данные(2)");
-                return;
-            }
-            if (checkBox1.Checked == false)
-                DrawSun(xc, yc, r, alpha, draw, BresenhamGradation);
-            else
-                DrawSun(xc, yc, r, alpha, fon, BresenhamGradation);
         }
 
 
@@ -327,208 +360,221 @@ namespace lab3
         private void button1_Click(object sender, EventArgs e)
         {
             canvas = panel1.CreateGraphics();
-            try
+            if (PART == 1)
             {
-                textBox1.Text = textBox1.Text.Replace('.', ',');
-                textBox2.Text = textBox2.Text.Replace('.', ',');
-                textBox3.Text = textBox3.Text.Replace('.', ',');
-                textBox4.Text = textBox4.Text.Replace('.', ',');
-                if (IsCoordsChange(Convert.ToDouble(textBox1.Text), Convert.ToDouble(textBox2.Text), Convert.ToDouble(textBox3.Text), Convert.ToDouble(textBox4.Text)) == 0)
-                    ClearCanvas();
-                x0 = Convert.ToDouble(textBox1.Text);
-                y0 = Convert.ToDouble(textBox2.Text);
-                xf = Convert.ToDouble(textBox3.Text);
-                yf = Convert.ToDouble(textBox4.Text);
+                try
+                {
+                    textBox1.Text = textBox1.Text.Replace('.', ',');
+                    textBox2.Text = textBox2.Text.Replace('.', ',');
+                    textBox3.Text = textBox3.Text.Replace('.', ',');
+                    textBox4.Text = textBox4.Text.Replace('.', ',');
+                    if (IsCoordsChange(Convert.ToDouble(textBox1.Text), Convert.ToDouble(textBox2.Text), Convert.ToDouble(textBox3.Text), Convert.ToDouble(textBox4.Text)) == 0)
+                        ClearCanvas();
+                    x0 = Convert.ToDouble(textBox1.Text);
+                    y0 = Convert.ToDouble(textBox2.Text);
+                    xf = Convert.ToDouble(textBox3.Text);
+                    yf = Convert.ToDouble(textBox4.Text);
+                }
+                catch
+                {
+                    MessageBox.Show("Проверьте введенные данные(1)");
+                    return;
+                }
+                if (checkBox1.Checked == false)
+                    CdaDrawLine(x0, y0, xf, yf, draw);
+                else
+                    CdaDrawLine(x0, y0, xf, yf, fon);
             }
-            catch
-            {
-                MessageBox.Show("Проверьте введенные данные(1)");
-                return;
-            }
-            if (checkBox1.Checked == false)
-                CdaDrawLine(x0, y0, xf, yf, draw);
             else
-                CdaDrawLine(x0, y0, xf, yf, fon);
-
-            canvas = panel2.CreateGraphics();
-            try
             {
-                textBox5.Text = textBox5.Text.Replace('.', ',');
-                textBox6.Text = textBox6.Text.Replace('.', ',');
-                textBox7.Text = textBox7.Text.Replace('.', ',');
-                textBox8.Text = textBox8.Text.Replace('.', ',');
-                if (IsParamsChange(Convert.ToDouble(textBox5.Text), Convert.ToDouble(textBox6.Text), Convert.ToDouble(textBox7.Text), Convert.ToDouble(textBox8.Text)) == 0)
-                    ClearCanvas();
-                xc = Convert.ToDouble(textBox5.Text);
-                yc = Convert.ToDouble(textBox6.Text);
-                r = Convert.ToDouble(textBox7.Text);
-                alpha = Convert.ToDouble(textBox8.Text);
+                try
+                {
+                    textBox1.Text = textBox1.Text.Replace('.', ',');
+                    textBox2.Text = textBox2.Text.Replace('.', ',');
+                    textBox3.Text = textBox3.Text.Replace('.', ',');
+                    textBox4.Text = textBox4.Text.Replace('.', ',');
+                    if (IsParamsChange(Convert.ToDouble(textBox1.Text), Convert.ToDouble(textBox2.Text), Convert.ToDouble(textBox3.Text), Convert.ToDouble(textBox4.Text)) == 0)
+                        ClearCanvas();
+                    xc = Convert.ToDouble(textBox1.Text);
+                    yc = Convert.ToDouble(textBox2.Text);
+                    r = Convert.ToDouble(textBox3.Text);
+                    alpha = Convert.ToDouble(textBox4.Text);
+                }
+                catch
+                {
+                    MessageBox.Show("Проверьте введенные данные(2)");
+                    return;
+                }
+                if (checkBox1.Checked == false)
+                    DrawSun(xc, yc, r, alpha, draw, CdaDrawLine);
+                else
+                    DrawSun(xc, yc, r, alpha, fon, CdaDrawLine);
             }
-            catch
-            {
-                MessageBox.Show("Проверьте введенные данные(2)");
-                return;
-            }
-            if (checkBox1.Checked == false)
-                DrawSun(xc, yc, r, alpha, draw, CdaDrawLine);
-            else
-                DrawSun(xc, yc, r, alpha, fon, CdaDrawLine);
         }
 
         private void button3_Click(object sender, EventArgs e)
         {
             canvas = panel1.CreateGraphics();
-            try
+            if (PART == 1)
             {
-                textBox1.Text = textBox1.Text.Replace('.', ',');
-                textBox2.Text = textBox2.Text.Replace('.', ',');
-                textBox3.Text = textBox3.Text.Replace('.', ',');
-                textBox4.Text = textBox4.Text.Replace('.', ',');
-                if (IsCoordsChange(Convert.ToDouble(textBox1.Text), Convert.ToDouble(textBox2.Text), Convert.ToDouble(textBox3.Text), Convert.ToDouble(textBox4.Text)) == 0)
-                    ClearCanvas();
-                x0 = Convert.ToDouble(textBox1.Text);
-                y0 = Convert.ToDouble(textBox2.Text);
-                xf = Convert.ToDouble(textBox3.Text);
-                yf = Convert.ToDouble(textBox4.Text);
+                try
+                {
+                    textBox1.Text = textBox1.Text.Replace('.', ',');
+                    textBox2.Text = textBox2.Text.Replace('.', ',');
+                    textBox3.Text = textBox3.Text.Replace('.', ',');
+                    textBox4.Text = textBox4.Text.Replace('.', ',');
+                    if (IsCoordsChange(Convert.ToDouble(textBox1.Text), Convert.ToDouble(textBox2.Text), Convert.ToDouble(textBox3.Text), Convert.ToDouble(textBox4.Text)) == 0)
+                        ClearCanvas();
+                    x0 = Convert.ToDouble(textBox1.Text);
+                    y0 = Convert.ToDouble(textBox2.Text);
+                    xf = Convert.ToDouble(textBox3.Text);
+                    yf = Convert.ToDouble(textBox4.Text);
+                }
+                catch
+                {
+                    MessageBox.Show("Проверьте введенные данные(1)");
+                    return;
+                }
+                if (checkBox1.Checked == false)
+                    BresenhamFloat(x0, y0, xf, yf, draw);
+                else
+                    BresenhamFloat(x0, y0, xf, yf, fon);
             }
-            catch
-            {
-                MessageBox.Show("Проверьте введенные данные");
-                return;
-            }
-            if (checkBox1.Checked == false)
-                BresenhamFloat(x0, y0, xf, yf, draw);
             else
-                BresenhamFloat(x0, y0, xf, yf, fon);
-
-            canvas = panel2.CreateGraphics();
-            try
             {
-                textBox5.Text = textBox5.Text.Replace('.', ',');
-                textBox6.Text = textBox6.Text.Replace('.', ',');
-                textBox7.Text = textBox7.Text.Replace('.', ',');
-                textBox8.Text = textBox8.Text.Replace('.', ',');
-                if (IsParamsChange(Convert.ToDouble(textBox5.Text), Convert.ToDouble(textBox6.Text), Convert.ToDouble(textBox7.Text), Convert.ToDouble(textBox8.Text)) == 0)
-                    ClearCanvas();
-                xc = Convert.ToDouble(textBox5.Text);
-                yc = Convert.ToDouble(textBox6.Text);
-                r = Convert.ToDouble(textBox7.Text);
-                alpha = Convert.ToDouble(textBox8.Text);
+                try
+                {
+                    textBox1.Text = textBox1.Text.Replace('.', ',');
+                    textBox2.Text = textBox2.Text.Replace('.', ',');
+                    textBox3.Text = textBox3.Text.Replace('.', ',');
+                    textBox4.Text = textBox4.Text.Replace('.', ',');
+                    if (IsParamsChange(Convert.ToDouble(textBox1.Text), Convert.ToDouble(textBox2.Text), Convert.ToDouble(textBox3.Text), Convert.ToDouble(textBox4.Text)) == 0)
+                        ClearCanvas();
+                    xc = Convert.ToDouble(textBox1.Text);
+                    yc = Convert.ToDouble(textBox2.Text);
+                    r = Convert.ToDouble(textBox3.Text);
+                    alpha = Convert.ToDouble(textBox4.Text);
+                }
+                catch
+                {
+                    MessageBox.Show("Проверьте введенные данные(2)");
+                    return;
+                }
+                if (checkBox1.Checked == false)
+                    DrawSun(xc, yc, r, alpha, draw, BresenhamFloat);
+                else
+                    DrawSun(xc, yc, r, alpha, fon, BresenhamFloat);
             }
-            catch
-            {
-                MessageBox.Show("Проверьте введенные данные(2)");
-                return;
-            }
-            if (checkBox1.Checked == false)
-                DrawSun(xc, yc, r, alpha, draw, BresenhamFloat);
-            else
-                DrawSun(xc, yc, r, alpha, fon, BresenhamFloat);
-
         }
 
         private void button4_Click(object sender, EventArgs e)
         {
             canvas = panel1.CreateGraphics();
-            try
+            if (PART == 1)
             {
-                textBox1.Text = textBox1.Text.Replace('.', ',');
-                textBox2.Text = textBox2.Text.Replace('.', ',');
-                textBox3.Text = textBox3.Text.Replace('.', ',');
-                textBox4.Text = textBox4.Text.Replace('.', ',');
-                if (IsCoordsChange(Convert.ToDouble(textBox1.Text), Convert.ToDouble(textBox2.Text), Convert.ToDouble(textBox3.Text), Convert.ToDouble(textBox4.Text)) == 0)
-                    ClearCanvas();
-                x0 = Convert.ToDouble(textBox1.Text);
-                y0 = Convert.ToDouble(textBox2.Text);
-                xf = Convert.ToDouble(textBox3.Text);
-                yf = Convert.ToDouble(textBox4.Text);
+                try
+                {
+                    textBox1.Text = textBox1.Text.Replace('.', ',');
+                    textBox2.Text = textBox2.Text.Replace('.', ',');
+                    textBox3.Text = textBox3.Text.Replace('.', ',');
+                    textBox4.Text = textBox4.Text.Replace('.', ',');
+                    if (IsCoordsChange(Convert.ToDouble(textBox1.Text), Convert.ToDouble(textBox2.Text), Convert.ToDouble(textBox3.Text), Convert.ToDouble(textBox4.Text)) == 0)
+                        ClearCanvas();
+                    x0 = Convert.ToDouble(textBox1.Text);
+                    y0 = Convert.ToDouble(textBox2.Text);
+                    xf = Convert.ToDouble(textBox3.Text);
+                    yf = Convert.ToDouble(textBox4.Text);
+                }
+                catch
+                {
+                    MessageBox.Show("Проверьте введенные данные(1)");
+                    return;
+                }
+                if (checkBox1.Checked == false)
+                    BresenhamInt(x0, y0, xf, yf, draw);
+                else
+                    BresenhamInt(x0, y0, xf, yf, fon);
             }
-            catch
-            {
-                MessageBox.Show("Проверьте введенные данные");
-                return;
-            }
-            if (checkBox1.Checked == false)
-                BresenhamInt(x0, y0, xf, yf, draw);
             else
-                BresenhamInt(x0, y0, xf, yf, fon);
-
-            canvas = panel2.CreateGraphics();
-            try
             {
-                textBox5.Text = textBox5.Text.Replace('.', ',');
-                textBox6.Text = textBox6.Text.Replace('.', ',');
-                textBox7.Text = textBox7.Text.Replace('.', ',');
-                textBox8.Text = textBox8.Text.Replace('.', ',');
-                if (IsParamsChange(Convert.ToDouble(textBox5.Text), Convert.ToDouble(textBox6.Text), Convert.ToDouble(textBox7.Text), Convert.ToDouble(textBox8.Text)) == 0)
-                    ClearCanvas();
-                xc = Convert.ToDouble(textBox5.Text);
-                yc = Convert.ToDouble(textBox6.Text);
-                r = Convert.ToDouble(textBox7.Text);
-                alpha = Convert.ToDouble(textBox8.Text);
+                try
+                {
+                    textBox1.Text = textBox1.Text.Replace('.', ',');
+                    textBox2.Text = textBox2.Text.Replace('.', ',');
+                    textBox3.Text = textBox3.Text.Replace('.', ',');
+                    textBox4.Text = textBox4.Text.Replace('.', ',');
+                    if (IsParamsChange(Convert.ToDouble(textBox1.Text), Convert.ToDouble(textBox2.Text), Convert.ToDouble(textBox3.Text), Convert.ToDouble(textBox4.Text)) == 0)
+                        ClearCanvas();
+                    xc = Convert.ToDouble(textBox1.Text);
+                    yc = Convert.ToDouble(textBox2.Text);
+                    r = Convert.ToDouble(textBox3.Text);
+                    alpha = Convert.ToDouble(textBox4.Text);
+                }
+                catch
+                {
+                    MessageBox.Show("Проверьте введенные данные(2)");
+                    return;
+                }
+                if (checkBox1.Checked == false)
+                    DrawSun(xc, yc, r, alpha, draw, BresenhamInt);
+                else
+                    DrawSun(xc, yc, r, alpha, fon, BresenhamInt);
             }
-            catch
-            {
-                MessageBox.Show("Проверьте введенные данные(2)");
-                return;
-            }
-            if (checkBox1.Checked == false)
-                DrawSun(xc, yc, r, alpha, draw, BresenhamInt);
-            else
-                DrawSun(xc, yc, r, alpha, fon, BresenhamInt);
-
         }
 
         private void button2_Click(object sender, EventArgs e)
         {
             canvas = panel1.CreateGraphics();
-            
-            try
+            if (PART == 1)
             {
-                textBox1.Text = textBox1.Text.Replace('.', ',');
-                textBox2.Text = textBox2.Text.Replace('.', ',');
-                textBox3.Text = textBox3.Text.Replace('.', ',');
-                textBox4.Text = textBox4.Text.Replace('.', ',');
-                if (IsCoordsChange(Convert.ToDouble(textBox1.Text), Convert.ToDouble(textBox2.Text), Convert.ToDouble(textBox3.Text), Convert.ToDouble(textBox4.Text)) == 0)
-                    ClearCanvas();
-                x0 = Convert.ToDouble(textBox1.Text);
-                y0 = Convert.ToDouble(textBox2.Text);
-                xf = Convert.ToDouble(textBox3.Text);
-                yf = Convert.ToDouble(textBox4.Text);
+                try
+                {
+                    textBox1.Text = textBox1.Text.Replace('.', ',');
+                    textBox2.Text = textBox2.Text.Replace('.', ',');
+                    textBox3.Text = textBox3.Text.Replace('.', ',');
+                    textBox4.Text = textBox4.Text.Replace('.', ',');
+                    if (IsCoordsChange(Convert.ToDouble(textBox1.Text), Convert.ToDouble(textBox2.Text), Convert.ToDouble(textBox3.Text), Convert.ToDouble(textBox4.Text)) == 0)
+                        ClearCanvas();
+                    x0 = Convert.ToDouble(textBox1.Text);
+                    y0 = Convert.ToDouble(textBox2.Text);
+                    xf = Convert.ToDouble(textBox3.Text);
+                    yf = Convert.ToDouble(textBox4.Text);
+                }
+                catch
+                {
+                    MessageBox.Show("Проверьте введенные данные(1)");
+                    return;
+                }
+                if (checkBox1.Checked == false)
+                    StdDrawLine(x0, y0, xf, yf, draw);
+                else
+                    StdDrawLine(x0, y0, xf, yf, fon);
             }
-            catch
-            {
-                MessageBox.Show("Проверьте введенные данные");
-                return;
-            }
-            if (checkBox1.Checked == false)
-                StdDrawLine(x0, y0, xf, yf, draw);
             else
-                StdDrawLine(x0, y0, xf, yf, fon);
-
-            canvas = panel2.CreateGraphics();
-            try
             {
-                textBox5.Text = textBox5.Text.Replace('.', ',');
-                textBox6.Text = textBox6.Text.Replace('.', ',');
-                textBox7.Text = textBox7.Text.Replace('.', ',');
-                textBox8.Text = textBox8.Text.Replace('.', ',');
-                if (IsParamsChange(Convert.ToDouble(textBox5.Text), Convert.ToDouble(textBox6.Text), Convert.ToDouble(textBox7.Text), Convert.ToDouble(textBox8.Text)) == 0)
-                    ClearCanvas();
-                xc = Convert.ToDouble(textBox5.Text);
-                yc = Convert.ToDouble(textBox6.Text);
-                r = Convert.ToDouble(textBox7.Text);
-                alpha = Convert.ToDouble(textBox8.Text);
+                try
+                {
+                    textBox1.Text = textBox1.Text.Replace('.', ',');
+                    textBox2.Text = textBox2.Text.Replace('.', ',');
+                    textBox3.Text = textBox3.Text.Replace('.', ',');
+                    textBox4.Text = textBox4.Text.Replace('.', ',');
+                    if (IsParamsChange(Convert.ToDouble(textBox1.Text), Convert.ToDouble(textBox2.Text), Convert.ToDouble(textBox3.Text), Convert.ToDouble(textBox4.Text)) == 0)
+                        ClearCanvas();
+                    xc = Convert.ToDouble(textBox1.Text);
+                    yc = Convert.ToDouble(textBox2.Text);
+                    r = Convert.ToDouble(textBox3.Text);
+                    alpha = Convert.ToDouble(textBox4.Text);
+                }
+                catch
+                {
+                    MessageBox.Show("Проверьте введенные данные(2)");
+                    return;
+                }
+                if (checkBox1.Checked == false)
+                    DrawSun(xc, yc, r, alpha, draw, StdDrawLine);
+                else
+                    DrawSun(xc, yc, r, alpha, fon, StdDrawLine);
             }
-            catch
-            {
-                MessageBox.Show("Проверьте введенные данные(2)");
-                return;
-            }
-            if (checkBox1.Checked == false)
-                DrawSun(xc, yc, r, alpha, draw, StdDrawLine);
-            else
-                DrawSun(xc, yc, r, alpha, fon, StdDrawLine);
         }
     }
 }
