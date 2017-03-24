@@ -26,6 +26,7 @@ namespace lab3
         Color fon = Color.White;
         double x0, y0, xf, yf;
         double xc, yc, r, alpha;
+        int I = 50;
 
         private void Form1_Load(object sender, EventArgs e)
         {
@@ -91,17 +92,6 @@ namespace lab3
                     y += dy;
                 }
                 //MessageBox.Show(x.ToString() + "   " + y.ToString());
-            }
-        }
-
-        private void DrawSun(double x, double y, double R, double a, Color clr, Action<double, double, double, double, Color> FuncLine)
-        {
-            float angle = (float)(a / 180 * Math.PI);
-            int N = (int)(2 * Math.PI / angle);
-            for (float i = 0; i <= 2*Math.PI-angle; i+=angle)
-            {
-                FuncLine(x, y, x + Math.Cos(i) * R, y + Math.Sin(i) * R, clr);
-                
             }
         }
 
@@ -171,7 +161,7 @@ namespace lab3
                 double stepx = sign(x2 - x1);
                 double stepy = sign(y2 - y1);
                 double m = dy / dx;
-                double flag;
+                int flag;
                 if (m > 1)
                 {
                     double tmp = dx;
@@ -209,6 +199,130 @@ namespace lab3
                 //MessageBox.Show(x.ToString() + "   " + y.ToString());
             }
         }
+
+        private void BresenhamGradation(double x1, double y1, double x2, double y2, Color clr)
+        {
+            double f = I;
+            Brush br = new SolidBrush(clr);
+            if (x1 == x2 && y1 == y2)
+                canvas.FillRectangle(br, (float)x1, (float)y1, 1, 1);
+            else
+            {
+                double dx = Math.Abs(x2 - x1);
+                double dy = Math.Abs(y2 - y1);
+                double stepx = sign(x2 - x1);
+                double stepy = sign(y2 - y1);
+                double m = dy / dx;
+                int flag;
+                if (m > 1)
+                {
+                    double tmp = dx;
+                    dx = dy;
+                    dy = tmp;
+                    m = 1 / m;
+                    flag = 1;
+                }
+                else
+                    flag = 0;
+                f = I / 2;
+                double x = x1;
+                double y = y1;
+                m *= I;
+                double W = I - m;
+                br = new SolidBrush(Color.FromArgb((int)(f/I*255), clr.R, clr.G, clr.B));
+                canvas.FillRectangle(br, (float)x1, (float)y1, 1, 1);
+                for (int i = 0; i < dx; i++)
+                {
+
+                    
+                    if (f <= W)
+                    {
+                        if (flag == 0)
+                            x += stepx;
+                        else
+                            y += stepy;
+                        f += m;
+                    }
+                    else
+                    {
+                        x += stepx;
+                        y += stepy;
+                        f -= W;
+                    }
+
+                    double C = 1 - f / I;
+                    Color drawcolor = Color.FromArgb((int)(C * 255), clr.R, clr.G, clr.B);
+                    br = new SolidBrush(drawcolor);
+                    canvas.FillRectangle(br, (float)x, (float)y, 1, 1);
+                }
+                MessageBox.Show(x.ToString() + "   " + y.ToString());
+            }
+
+            }
+
+        private void DrawSun(double x, double y, double R, double a, Color clr, Action<double, double, double, double, Color> FuncLine)
+        {
+            float angle = (float)(a / 180 * Math.PI);
+            int N = (int)(2 * Math.PI / angle);
+            for (float i = 0; i <= 2*Math.PI-angle; i+=angle)
+            {
+                FuncLine(x, y, x + Math.Cos(i) * R, y + Math.Sin(i) * R, clr);
+                
+            }
+        }
+
+        private void button5_Click(object sender, EventArgs e)
+        {
+            canvas = panel1.CreateGraphics();
+            try
+            {
+                textBox1.Text = textBox1.Text.Replace('.', ',');
+                textBox2.Text = textBox2.Text.Replace('.', ',');
+                textBox3.Text = textBox3.Text.Replace('.', ',');
+                textBox4.Text = textBox4.Text.Replace('.', ',');
+                if (IsCoordsChange(Convert.ToDouble(textBox1.Text), Convert.ToDouble(textBox2.Text), Convert.ToDouble(textBox3.Text), Convert.ToDouble(textBox4.Text)) == 0)
+                    ClearCanvas();
+                x0 = Convert.ToDouble(textBox1.Text);
+                y0 = Convert.ToDouble(textBox2.Text);
+                xf = Convert.ToDouble(textBox3.Text);
+                yf = Convert.ToDouble(textBox4.Text);
+            }
+            catch
+            {
+                MessageBox.Show("Проверьте введенные данные(1)");
+                return;
+            }
+            if (checkBox1.Checked == false)
+                BresenhamGradation(x0, y0, xf, yf,draw);
+            else
+                BresenhamGradation(x0, y0, xf, yf,fon);
+
+            canvas = panel2.CreateGraphics();
+            try
+            {
+                textBox5.Text = textBox5.Text.Replace('.', ',');
+                textBox6.Text = textBox6.Text.Replace('.', ',');
+                textBox7.Text = textBox7.Text.Replace('.', ',');
+                textBox8.Text = textBox8.Text.Replace('.', ',');
+                if (IsParamsChange(Convert.ToDouble(textBox5.Text), Convert.ToDouble(textBox6.Text), Convert.ToDouble(textBox7.Text), Convert.ToDouble(textBox8.Text)) == 0)
+                    ClearCanvas();
+                xc = Convert.ToDouble(textBox5.Text);
+                yc = Convert.ToDouble(textBox6.Text);
+                r = Convert.ToDouble(textBox7.Text);
+                alpha = Convert.ToDouble(textBox8.Text);
+            }
+            catch
+            {
+                MessageBox.Show("Проверьте введенные данные(2)");
+                return;
+            }
+            if (checkBox1.Checked == false)
+                DrawSun(xc, yc, r, alpha, draw, BresenhamGradation);
+            else
+                DrawSun(xc, yc, r, alpha, fon, BresenhamGradation);
+        }
+
+
 
         private void button1_Click(object sender, EventArgs e)
         {
