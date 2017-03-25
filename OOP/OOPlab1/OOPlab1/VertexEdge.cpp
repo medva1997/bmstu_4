@@ -5,7 +5,11 @@
 
 Vertex_T InitVertex()
 {
-	return { 0.0, 0.0, 0.0 };
+	Vertex_T vertix;
+	vertix.x=0.0;
+	vertix.y=0.0;
+	vertix.z=0.0;
+	return  vertix;
 }
 
 double VertexGetX(const Vertex_T &vertex)
@@ -34,7 +38,10 @@ void VertexSet(Vertex_T &vertex, double xval, double yval, double zval)
 
 Edge_T InitEdge()
 {
-	return{0, 0};
+	Edge_T edge;
+	edge.from=0;
+	edge.to=0;
+	return edge;
 }
 
 int EdgeGetFrom(const Edge_T &edge)
@@ -57,7 +64,10 @@ void EdgeSet(Edge_T &edge, int fromval, int toval)
 
 VertexArray_T InitVertexArray()
 {
-	return { NULL, 0 };
+	VertexArray_T VertexArray;
+	VertexArray.count=0;
+	VertexArray.vertexarr=NULL;
+	return VertexArray;
 }
 
 int VertexArrayGetCount(const VertexArray_T &VertexArray)
@@ -133,7 +143,10 @@ TError FreeVertexArray(VertexArray_T &VertexArray)
 
 EdgeArray_T InitEdgeArray()
 {
-	return{ NULL, 0 };
+	EdgeArray_T  EdgeArray;
+	EdgeArray.count=0;
+	EdgeArray.edgearr=NULL;
+	return EdgeArray;
 }
 
 int EdgeArrayGetCount(const EdgeArray_T &EdgeArray)

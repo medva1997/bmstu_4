@@ -1,6 +1,5 @@
 #pragma once
 #include <stdio.h>
-#include "VertexEdge.h"
 #include "model.h"
 #include "errors.h"
 

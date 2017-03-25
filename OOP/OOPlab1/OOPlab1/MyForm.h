@@ -335,10 +335,14 @@ namespace OOPlab1 {
 		{
 			String^ filename = openFileDialog1->FileName;
 			char *file = (char*)(void*)Marshal::StringToHGlobalAnsi(filename);
+
+			panel1->CreateGraphics();
 			Data_T data;
 			DataSetStr(data, file);
 			EntryAction(ActionLoad, data);
 		}
 	}
 };
+
+
 }
