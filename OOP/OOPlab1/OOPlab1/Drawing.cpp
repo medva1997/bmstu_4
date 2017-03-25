@@ -3,15 +3,15 @@
 DrawingPanel InitPanel()
 {
 	DrawingPanel canvas;
-	//canvas.panel = NULL;
+	canvas.g =nullptr;
 	canvas.x_center = 0;
 	canvas.y_center = 0;
 	return canvas;
 }
 
-void PanelSet(DrawingPanel &canvas, MyCanvas panel)
+void PanelSet(DrawingPanel &canvas, MyDrawing g)
 {
-	canvas.panel = panel;
+	canvas.g = g;
 }
 
 void PanelSet(DrawingPanel &canvas, double x_center, double y_center)
@@ -20,17 +20,17 @@ void PanelSet(DrawingPanel &canvas, double x_center, double y_center)
 	canvas.y_center = y_center;
 }
 
-MyCanvas PanelGetCanvas(DrawingPanel &canvas)
+MyDrawing PanelGetCanvas(DrawingPanel &canvas)
 {
-	return canvas.panel;
+	return canvas.g;
 }
 
-int PanelGetXCenter(DrawingPanel &canvas)
+double PanelGetXCenter(DrawingPanel &canvas)
 {
 	return canvas.x_center;
 }
 
-int PanelGetYCenter(DrawingPanel &canvas)
+double PanelGetYCenter(DrawingPanel &canvas)
 {
 	return canvas.y_center;
 }
@@ -43,7 +43,7 @@ void DrawModel(DrawingPanel panel,const Model_T &model)
 	double x_center_model = VertexGetX(center_model);
 	double y_center_model = VertexGetY(center_model);
 
-	MyCanvas canvas = PanelGetCanvas(panel);
+	MyDrawing canvas = PanelGetCanvas(panel);
 	double x_center_panel = PanelGetXCenter(panel);
 	double y_center_panel = PanelGetYCenter(panel);
 

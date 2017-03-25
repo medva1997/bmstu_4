@@ -1,5 +1,4 @@
 #pragma once
-#include "VertexEdge.h"
 #include "model.h"
 
 void TransfMoveVertex(Vertex_T &vertex, double dx, double dy, double dz);

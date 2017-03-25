@@ -1,6 +1,5 @@
 #pragma once
 #include "errors.h"
-#include "model.h"
 #include "Drawing.h"
 #include "FileProcessing.h"
 #include "Transformations.h"
